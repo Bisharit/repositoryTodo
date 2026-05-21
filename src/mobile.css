@@ -1,0 +1,387 @@
+/**
+ * Адаптация под телефоны (iOS / Android): safe-area, касания, узкие и альбомные экраны.
+ */
+
+/* —— Оболочка приложения —— */
+@media (max-width: 768px) {
+  .app {
+    max-width: none;
+    width: 100%;
+    padding: max(0.4rem, var(--safe-top)) max(0.55rem, var(--safe-right)) 0
+      max(0.55rem, var(--safe-left));
+  }
+
+  .app__main {
+    min-height: 0;
+  }
+
+  .app__nav {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    margin-top: auto;
+    padding-top: 0.4rem;
+    padding-bottom: max(0.45rem, var(--safe-bottom));
+    background: linear-gradient(
+      to top,
+      var(--bg) 72%,
+      rgba(239, 230, 223, 0.92) 88%,
+      transparent
+    );
+  }
+
+  .tabs__list {
+    gap: 0.35rem;
+    padding: 0.3rem;
+  }
+
+  .tabs__btn {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: var(--touch-min);
+    padding: 0.55rem 0.4rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+  }
+
+  .panel {
+    padding: 0.65rem;
+    border-radius: calc(var(--radius) - 2px);
+    min-height: 0;
+  }
+
+  .panel--tasks,
+  .panel--obligations {
+    padding: 0.55rem;
+  }
+}
+
+/* —— Планёр: календарь + боковая панель —— */
+@media (max-width: 768px) {
+  .app--planner-split {
+    padding: max(0.35rem, var(--safe-top)) max(0.45rem, var(--safe-right)) 0
+      max(0.45rem, var(--safe-left));
+  }
+
+  .panel--planner {
+    padding: 0.4rem;
+    gap: 0.45rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) minmax(8.5rem, 34vh);
+  }
+
+  .planner-layout__aside {
+    flex-shrink: 0;
+    min-height: 8.5rem;
+    max-height: 34vh;
+    padding: 0.5rem;
+  }
+
+  .planner-cal__month-row {
+    max-width: none;
+    gap: 0.35rem;
+  }
+
+  .planner-cal__nav--icon {
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+  }
+
+  .planner-cal__today {
+    min-height: 2.25rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .planner-cal__cell {
+    min-height: 2.35rem;
+    border-radius: calc(var(--radius) - 6px);
+  }
+
+  .geo-consent__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .geo-consent__btn {
+    min-height: var(--touch-min);
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .planner-cal__weekday {
+    font-size: 0.52rem;
+    letter-spacing: 0.03em;
+  }
+
+  .planner-cal__day {
+    font-size: 0.72rem;
+  }
+
+  .planner-cal__title {
+    font-size: 0.9rem;
+  }
+}
+
+/* —— Модальное окно дня —— */
+@media (max-width: 768px) {
+  .day-modal__header {
+    padding: 0.75rem 0.75rem 0.45rem;
+    padding-top: max(0.75rem, var(--safe-top));
+  }
+
+  .day-modal__close {
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+  }
+
+  .day-modal__tabs {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 0.35rem;
+  }
+
+  .day-modal__tab {
+    min-height: var(--touch-min);
+    padding: 0.5rem 0.65rem;
+    font-size: 0.78rem;
+  }
+
+  .hour-scroll,
+  .work-day-scroll {
+    padding: 0 0.5rem 0.65rem;
+    padding-bottom: max(0.65rem, var(--safe-bottom));
+  }
+
+  .hour-row__card {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.6rem 0.55rem;
+  }
+
+  .hour-row__main {
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .hour-row__status-btn {
+    width: var(--touch-min);
+    height: var(--touch-min);
+    font-size: 1rem;
+  }
+
+  .hour-row__field-shell {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .work-day-form__time,
+  .work-day-form__text {
+    font-size: 16px;
+  }
+
+  .fail-reason-modal__actions {
+    flex-direction: column;
+  }
+
+  .fail-reason-modal__btn {
+    min-height: var(--touch-min);
+    width: 100%;
+  }
+}
+
+/* —— Задачки —— */
+@media (max-width: 600px) {
+  .tasks-panel__hero {
+    padding: 0.95rem 0.85rem;
+  }
+
+  .tasks-composer {
+    padding: 0.85rem;
+  }
+
+  .tasks-composer__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+  }
+
+  .tasks-composer__hint {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .tasks-composer__submit {
+    width: 100%;
+    min-height: var(--touch-min);
+    justify-content: center;
+  }
+
+  .tasks-composer__remind,
+  .obligations-composer__duration {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .tasks-list__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.45rem 0.5rem;
+    padding: 0.65rem 0.7rem;
+  }
+
+  .tasks-list__check-wrap {
+    order: 0;
+    padding-top: 0.2rem;
+  }
+
+  .tasks-list__move,
+  .tasks-list__move-spacer {
+    order: 1;
+  }
+
+  .tasks-list__remove {
+    order: 0;
+    margin-left: auto;
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+  }
+
+  .tasks-list__body {
+    order: 2;
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .tasks-list__move {
+    min-height: 2rem;
+  }
+}
+
+/* —— Обязаловка —— */
+@media (max-width: 600px) {
+  .obligations-list__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.45rem;
+    padding: 0.65rem 0.7rem;
+  }
+
+  .obligations-list__main {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .obligations-list__done,
+  .obligations-list__undo {
+    flex: 1 1 calc(50% - 0.35rem);
+    min-height: var(--touch-min);
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .obligations-list__item .tasks-list__remove {
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+    margin-left: 0;
+  }
+}
+
+/* —— Боковая панель планёра —— */
+@media (max-width: 768px) {
+  .planner-aside__tab {
+    min-height: 2.35rem;
+    padding: 0.45rem 0.35rem;
+  }
+
+  .planner-aside__item {
+    padding: 0.55rem 0.6rem;
+  }
+}
+
+/* —— Пикеры времени / длительности (полноэкранные листы) —— */
+@media (max-width: 768px) {
+  .time-picker-sheet,
+  .duration-picker-sheet {
+    justify-content: flex-end;
+  }
+
+  .time-picker-sheet__panel,
+  .duration-picker-sheet__panel {
+    max-height: min(92dvh, 100%);
+    border-radius: calc(var(--radius) + 4px) calc(var(--radius) + 4px) 0 0;
+    padding-bottom: max(0.5rem, var(--safe-bottom));
+  }
+
+  .time-picker-sheet__input,
+  .duration-picker-sheet__input {
+    font-size: 16px;
+  }
+
+  .time-picker-sheet__btn,
+  .duration-picker-sheet__btn {
+    min-height: var(--touch-min);
+  }
+
+  .time-field__trigger,
+  .duration-field {
+    min-height: 2.35rem;
+  }
+}
+
+/* —— Альбомная ориентация на телефоне —— */
+@media (max-height: 520px) and (orientation: landscape) {
+  .app__nav {
+    padding-top: 0.25rem;
+    padding-bottom: max(0.3rem, var(--safe-bottom));
+  }
+
+  .tabs__btn {
+    min-height: 2.5rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .panel--planner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-rows: 1fr;
+  }
+
+  .planner-layout__aside {
+    max-height: none;
+    min-height: 0;
+  }
+
+  .tasks-panel__hero,
+  .obligations-panel .tasks-panel__hero {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .tasks-composer__field {
+    min-height: 3rem;
+  }
+}
+
+/* —— Крупные телефоны (Plus / Pro Max) —— */
+@media (min-width: 390px) and (max-width: 768px) {
+  .planner-cal__cell {
+    min-height: 2.55rem;
+  }
+}
+
+/* —— Планшеты портрет —— */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .app {
+    max-width: 100%;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .panel--planner {
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+  }
+}
