@@ -1,6 +1,5 @@
 import { execSync } from "node:child_process";
 import express from "express";
-import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
