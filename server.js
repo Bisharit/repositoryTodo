@@ -7,10 +7,8 @@ import { fileURLToPath } from "node:url";
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(rootDir, "dist");
 
-if (!fs.existsSync(path.join(distDir, "index.html"))) {
-  console.log("Building production bundle...");
-  execSync("npm run build", { stdio: "inherit", cwd: rootDir });
-}
+console.log("Building production bundle...");
+execSync("npm run build", { stdio: "inherit", cwd: rootDir });
 
 const app = express();
 app.use(express.static(distDir, { maxAge: "1h" }));
