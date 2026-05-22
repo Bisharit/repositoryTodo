@@ -8,7 +8,6 @@
     "build": "vite build",
     "build:pages": "vite build",
     "preview": "vite preview",
-    "start": "node server.js",
     "serve": "node server.js",
     "deploy:bonto": "powershell -ExecutionPolicy Bypass -File scripts/deploy-bonto.ps1",
     "deploy:pages": "powershell -ExecutionPolicy Bypass -File scripts/deploy-github-pages.ps1"

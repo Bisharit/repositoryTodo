@@ -14,7 +14,8 @@ Copy-Item -Path "dist\sw.js" -Destination "sw.js" -Force
 $pkgPath = "package.json"
 $pkgJson = Get-Content $pkgPath -Raw
 $pkgForBonto = $pkgJson -replace '(?m)^\s*"start":\s*"node server\.js",\r?\n', ''
-Set-Content -Path $pkgPath -Value $pkgForBonto -Encoding utf8NoBOM -NoNewline
+$utf8 = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText((Join-Path $root $pkgPath), $pkgForBonto.TrimEnd(), $utf8)
 
 git add dist index.html assets sw.js package.json server.js scripts/deploy-bonto.ps1
 $status = git status --porcelain
@@ -22,12 +23,14 @@ if ($status) {
   git commit -m "Deploy: static build for Bonto"
 }
 
-$bontoUrl = "https://api.bonto.dev/git/skmytodo.git"
-if (-not (git remote | Select-String -Pattern "^bonto$")) {
+$bontoUrl = "https://api.bonto.dev/git/skmytodoo.git"
+if (git remote | Select-String -Pattern "^bonto$") {
+  git remote set-url bonto $bontoUrl
+} else {
   git remote add bonto $bontoUrl
 }
 
 Write-Host "Pushing to Bonto (branch master)..."
 git push bonto HEAD:master
 
-Write-Host "Pushed. If https://skmytodo.bonto.run still 404, create/start app 'skmytodo' on bonto.dev."
+Write-Host "Done. Open https://skmytodoo.bonto.run in ~15 seconds."
