@@ -12,11 +12,9 @@ Copy-Item -Path "dist\sw.js" -Destination "sw.js" -Force
 
 # Bonto static hosting: без npm start (только index.html + assets)
 $pkgPath = "package.json"
-$pkg = Get-Content $pkgPath -Raw | ConvertFrom-Json
-if ($pkg.scripts.start) {
-  $pkg.scripts.PSObject.Properties.Remove("start")
-  $pkg | ConvertTo-Json -Depth 10 | Set-Content $pkgPath -Encoding utf8
-}
+$pkgJson = Get-Content $pkgPath -Raw
+$pkgForBonto = $pkgJson -replace '(?m)^\s*"start":\s*"node server\.js",\r?\n', ''
+Set-Content -Path $pkgPath -Value $pkgForBonto -Encoding utf8NoBOM -NoNewline
 
 git add dist index.html assets sw.js package.json server.js scripts/deploy-bonto.ps1
 $status = git status --porcelain
