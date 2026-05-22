@@ -1,19 +1,22 @@
-import { execSync } from "node:child_process";
 import express from "express";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(rootDir, "dist");
+const indexPath = path.join(distDir, "index.html");
 
-console.log("Building production bundle...");
-execSync("npm run build", { stdio: "inherit", cwd: rootDir });
+if (!fs.existsSync(indexPath)) {
+  console.error("Missing dist/index.html — run: npm run build");
+  process.exit(1);
+}
 
 const app = express();
 app.use(express.static(distDir, { maxAge: "1h" }));
 
 app.get(/.*/, (_req, res) => {
-  res.sendFile(path.join(distDir, "index.html"));
+  res.sendFile(indexPath);
 });
 
 const port = Number(process.env.PORT) || 3000;
